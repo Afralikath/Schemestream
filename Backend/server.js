@@ -5,6 +5,8 @@ const schemeRoutes = require('./routes/schemeRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const mongoose = require('mongoose');
 const cors = require('cors'); // Import CORS
+const port = process.env.PORT || 5000;
+
 
 
 // Connect to MongoDB Atlas
@@ -17,7 +19,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({ 
-  origin: "https://scheme-stream-fe.vercel.app", // Allow frontend origin
+  origin: "*", // Allow all origin
   methods: "GET, POST, PUT, DELETE, OPTIONS",
   allowedHeaders: "Content-Type, Authorization",
   credentials: true
@@ -41,5 +43,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
+
+//app.listen(port, () => console.log(`Server running on port ${port}`));
 // ✅ Instead of app.listen, export app for Vercel
 module.exports = app;
